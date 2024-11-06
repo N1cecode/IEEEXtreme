@@ -1,22 +1,25 @@
 import numpy as np
 def solve(N, x, A_list):
     bricks = sorted(A_list, reverse=True)
+    # print(bricks)
     rest_num_bricks = N
     stack_list = []
     rest_indices = list(range(N))
     try:
-        while bricks:
+        while rest_indices:
+            # print(rest_indices)
             current_brick = bricks[rest_indices.pop(0)]
             rest_num_bricks -= 1
             current_stack = []
             current_stack.append(current_brick)
             for i in rest_indices.copy():
+                # print("indice:", i, "brick:", bricks[i], "rest_num_bricks:", rest_num_bricks)
                 if current_brick >= bricks[i] + x:
                     current_brick = bricks[i]
                     rest_indices.remove(i)
                     rest_num_bricks -= 1
                     current_stack.append(current_brick)
-                elif i == rest_num_bricks:
+                elif i == rest_num_bricks-1:
                     break
                 
             stack_list.append(current_stack)
